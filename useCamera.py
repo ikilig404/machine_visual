@@ -33,31 +33,29 @@ while True:
     ret, frame = cap.read()
 
     frame = frame[crop_h_start:crop_h_start + w, crop_w_start:crop_w_start + w]
-    # 没理解？
 
-    frame = cv2.flip(frame, 1, dst=None)
+    frame = cv2.flip(frame, 1, dst=None)  # 水平镜像处理
     # 镜像显示
     cv2.imshow("capture", frame)
     # 显示
 
-    input = cv2.waitKey(1) & 0xFF
-    if input == ord('z'):
+    inputt = cv2.waitKey(1) & 0xFF
+    if inputt == ord('z'):
         class_name = input("请输入存储目录：")
         while os.path.exists(class_name):
             class_name = input("目录已存在！请输入存储目录：")
         os.mkdir(class_name)
     # 存储
 
-    elif input == ord('x'):
+    elif inputt == ord('x'):
         cv2.imwrite("%s/%d.jpeg" % (class_name, index),
                     cv2.resize(frame, (224, 224), interpolation=cv2.INTER_AREA))
         print("%s: %d 张图片" % (class_name, index))
         index += 1
     # ？
-    if input == ord('q'):
+    if inputt == ord('q'):
         break
     # 退出
 
 cap.release()
 cv2.destroyAllWindows()
-# 关闭窗口
